@@ -8,8 +8,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftServer.class)
 public class ExampleMixin {
-	@Inject(at = @At("HEAD"), method = "loadLevel")
-	private void init(CallbackInfo info) {
-		// This code is injected into the start of MinecraftServer.loadLevel()V
-	}
+
+    @Inject(method = "createWorlds", at = @At("HEAD"))
+    private void onCreateWorlds(CallbackInfo ci) {
+        System.out.println("Server worlds are being created");
+    }
 }

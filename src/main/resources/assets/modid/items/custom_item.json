@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "modid:item/banana_sword"
+    "model": "modid:item/custom_item"
   }
 }
