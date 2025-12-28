@@ -85,21 +85,7 @@ public class ModItems {
                             )
             )
             );
-//    public static final RegistryKey<Item> GOD_BOW_KEY =
-//            RegistryKey.of(
-//                    Registries.ITEM.getKey(),
-//                    Identifier.of("modid", "god_bow")
-//            );
-//    public static final Item GOD_BOW = Registry.register(
-//            Registries.ITEM,
-//            GOD_BOW_KEY,
-//            new GodBow(
-//                    new Item.Settings()
-//                            .registryKey(GOD_BOW_KEY)
-//                            .rarity(Rarity.EPIC)
-//                            .maxDamage(500)
-//            )
-//    );
+
 
     public static void init() {
         // no-op
