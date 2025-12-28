@@ -11,7 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import java.util.UUID;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
@@ -32,6 +31,7 @@ public class ModItems {
                     new Item.Settings()
                             .registryKey(CUSTOM_ITEM_KEY)
                             .rarity(Rarity.RARE)
+                            .maxCount(16)
             )
     );
     public static final RegistryKey<Item> BANANA_SWORD_KEY =
@@ -48,6 +48,8 @@ public class ModItems {
                     new Item.Settings()
                             .registryKey(BANANA_SWORD_KEY)
                             .rarity(Rarity.COMMON)
+                            .maxCount(1)
+                            .maxDamage(500)
                             .component(
                                     DataComponentTypes.ATTRIBUTE_MODIFIERS,
                                     AttributeModifiersComponent.builder()
@@ -70,7 +72,15 @@ public class ModItems {
                                                     ),
                                                     AttributeModifierSlot.MAINHAND
                                             )
-
+                                            .add(
+                                                    EntityAttributes.MOVEMENT_SPEED,
+                                                    new EntityAttributeModifier(
+                                                            Identifier.of("modid", "banana_movementspeed"),
+                                                            0.65, // movement speed uses MULTIPLIER, not raw values
+                                                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                                                    ),
+                                                    AttributeModifierSlot.MAINHAND
+                                            )
                                             .build()
                             )
             )
