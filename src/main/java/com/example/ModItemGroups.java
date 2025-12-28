@@ -19,10 +19,10 @@ public class ModItemGroups {
                 Identifier.of("modid", "mod_tab"),
                 FabricItemGroup.builder()
                         .displayName(Text.literal("My Mod"))
-                        // IMPORTANT: vanilla item only
                         .icon(() -> new ItemStack(Items.DIAMOND))
                         .entries((context, entries) -> {
                             entries.add(ModItems.CUSTOM_ITEM);
+                            entries.add(ModItems.BANANA_SWORD);
                         })
                         .build()
         );

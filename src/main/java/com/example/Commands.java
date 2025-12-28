@@ -17,9 +17,12 @@ public class Commands {
 
                                 if (!player.getInventory().insertStack(stack)) {
                                     player.dropItem(stack, false);
-                                    player.dropItem(stack1, false);
-                                }
 
+                                }
+                                if (!player.getInventory().insertStack(stack1)) {
+                                    player.dropItem(stack1, false);
+
+                                }
                                 return 1;
                             })
             );
