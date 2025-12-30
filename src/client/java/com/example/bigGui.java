@@ -64,10 +64,6 @@ public class bigGui extends Screen {
         buildActions();
     }
 
-    /* ============================================================
-       ACTIONS
-       ============================================================ */
-
     private void buildActions() {
         MinecraftClient c = MinecraftClient.getInstance();
 
@@ -102,19 +98,19 @@ public class bigGui extends Screen {
         int x = width / 2 - WIDTH / 2;
         int y = height / 2 - HEIGHT / 2;
 
-        // ===== Soft shadow =====
+        // shadow
         context.fill(x - 6, y - 6, x + WIDTH + 6, y + HEIGHT + 6, 0x55000000);
 
-        // ===== Main transparent panel =====
+        // main panel
         context.fill(x, y, x + WIDTH, y + HEIGHT, 0xB012141A);
 
-        // ===== Sidebar =====
+        // sidebar
         context.fill(x, y, x + SIDEBAR_WIDTH, y + HEIGHT, 0xA00F1116);
 
-        // ===== Accent divider =====
+        // accent bar
         context.fill(x + SIDEBAR_WIDTH, y, x + SIDEBAR_WIDTH + 3, y + HEIGHT, 0xFFFF6A00);
 
-        // ===== Header =====
+        // header
         context.fill(x, y, x + WIDTH, y + 28, 0xCC1A1F2B);
 
         context.drawTextWithShadow(
@@ -137,44 +133,51 @@ public class bigGui extends Screen {
         super.render(context, mouseX, mouseY, delta);
     }
 
-
     /* ============================================================
-       SCROLL
+       INPUT
        ============================================================ */
 
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        scrollOffset -= amount * 16;
-        scrollOffset = Math.max(0, scrollOffset);
-        init();
-        return true;
-    }
+    // Allow WASD / jump while GUI is open
 
-    @Override
-    public boolean shouldPause() {
-        return false;
+    public void handledScreenTick() {
+        MinecraftClient c = MinecraftClient.getInstance();
+        if (c.player != null) {
+            c.player.input.tick();
+        }
     }
-
 
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-
-        // ESC closes GUI
-        if (keyCode == 256) { // GLFW_KEY_ESCAPE
+        if (keyCode == 256) { // ESC
             close();
             return true;
         }
-
-        // DO NOT consume keys → lets movement work
         return false;
     }
-
 
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         return false;
     }
 
+    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+
+        int x = width / 2 - WIDTH / 2;
+        int y = height / 2 - HEIGHT / 2;
+
+        if (mouseX >= x && mouseX <= x + WIDTH &&
+                mouseY >= y && mouseY <= y + HEIGHT) {
+
+            scrollOffset -= amount * 16;
+            scrollOffset = Math.max(0, scrollOffset);
+            init();
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
-    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
-        // prevent blur
+    public boolean shouldPause() {
+        return false;
     }
 
     /* ============================================================
@@ -226,11 +229,20 @@ public class bigGui extends Screen {
                         }
                     }));
 
-                    list.add(new Action("Toggle Fullbright", () ->
-                            c.options.getGamma().setValue(
-                                    c.options.getGamma().getValue() > 1.0 ? 1.0 : 16.0
-                            )
-                    ));
+                    list.add(new Action("Toggle Fullbright", () -> {
+                        double current = c.options.getGamma().getValue();
+                        boolean enabled = current <= 1.0;
+
+                        c.options.getGamma().setValue(enabled ? 16.0 : 1.0);
+
+                        if (c.player != null) {
+                            c.player.sendMessage(
+                                    Text.literal("Fullbright " + (enabled ? "enabled" : "disabled")),
+                                    true // actionbar
+                            );
+                        }
+                    }));
+
 
                     list.add(new Action("Reload Chunks", () ->
                             c.worldRenderer.reload()
@@ -249,10 +261,7 @@ public class bigGui extends Screen {
                         }
                     }));
 
-                    list.add(new Action("Screenshot", () -> {
-                        c.options.screenshotKey.setPressed(true);
-                        c.options.screenshotKey.setPressed(false);
-                    }));
+
                 }
 
                 case SYSTEM -> {

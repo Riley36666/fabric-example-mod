@@ -24,7 +24,7 @@ loom {
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-    // ✅ REQUIRED FOR FABRIC
+    // REQUIRED FOR FABRIC
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
@@ -49,4 +49,15 @@ java {
     withSourcesJar()
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
+}
+
+//
+//  ⭐ AUTO‑COPY YOUR EXACT BUILT JAR INTO LUNAR CLIENT ⭐
+//
+tasks.build.doLast {
+    copy {
+        from "C:/Users/riley/Desktop/fabric-example-mod/build/libs"
+        into "C:/Users/riley/.lunarclient/profiles/lunar/1.21/mods/fabric-1.21.11"
+        include "modid-1.0.0.jar"
+    }
 }
