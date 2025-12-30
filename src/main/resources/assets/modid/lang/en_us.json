@@ -1,5 +1,7 @@
 {
-  "item.modid.custom_item": "Custom Item",
+  "item.modid.custom_item": "Flight Gem",
   "item.modid.banana_sword": "Banana Sword",
-  "key.modid.opengui": "Open controls Gui"
+  "item.modid.fire_katana": "Fire Katana",
+  "key.modid.opengui": "Open controls Gui",
+  "key.modid.openbiggui": "Open Full Gui"
 }

@@ -23,6 +23,7 @@ public class ModItemGroups {
                         .entries((context, entries) -> {
                             entries.add(ModItems.CUSTOM_ITEM);
                             entries.add(ModItems.BANANA_SWORD);
+                            entries.add(ModItems.FIRE_KATANA);
                         })
                         .build()
         );

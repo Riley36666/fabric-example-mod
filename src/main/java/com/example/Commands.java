@@ -14,6 +14,7 @@ public class Commands {
                                 ServerPlayerEntity player = context.getSource().getPlayer();
                                 ItemStack stack = new ItemStack(ModItems.CUSTOM_ITEM);
                                 ItemStack stack1 = new ItemStack(ModItems.BANANA_SWORD);
+                                ItemStack stack2 = new ItemStack(ModItems.FIRE_KATANA);
 
                                 if (!player.getInventory().insertStack(stack)) {
                                     player.dropItem(stack, false);
@@ -21,6 +22,10 @@ public class Commands {
                                 }
                                 if (!player.getInventory().insertStack(stack1)) {
                                     player.dropItem(stack1, false);
+
+                                }
+                                if (!player.getInventory().insertStack(stack2)) {
+                                    player.dropItem(stack2, false);
 
                                 }
                                 return 1;

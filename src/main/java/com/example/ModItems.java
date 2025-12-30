@@ -85,6 +85,56 @@ public class ModItems {
                             )
             )
             );
+    public static final RegistryKey<Item> FIRE_KATANA_KEY =
+            RegistryKey.of(
+                    Registries.ITEM.getKey(),
+                    Identifier.of("modid", "fire_katana") // matches the JSON and PNG name
+            );
+
+    public static final Item FIRE_KATANA = Registry.register(
+            Registries.ITEM,
+            FIRE_KATANA_KEY,
+            new FireKatana(
+                    new Item.Settings()
+                            .registryKey(FIRE_KATANA_KEY)
+                            .rarity(Rarity.UNCOMMON)
+                            .maxCount(1)
+                            .maxDamage(500)
+                            .component(
+                                    DataComponentTypes.ATTRIBUTE_MODIFIERS,
+                                    AttributeModifiersComponent.builder()
+                                            .add(
+                                                    EntityAttributes.ATTACK_DAMAGE,
+                                                    new EntityAttributeModifier(
+                                                            Identifier.of("modid", "fire_katana_damage"),
+                                                            12.0,
+                                                            EntityAttributeModifier.Operation.ADD_VALUE
+                                                    ),
+                                                    AttributeModifierSlot.MAINHAND
+                                            )
+                                            .add(
+                                                    EntityAttributes.ATTACK_SPEED,
+                                                    new EntityAttributeModifier(
+                                                            Identifier.of("modid", "fire_katana_speed"),
+                                                            5.0,
+                                                            EntityAttributeModifier.Operation.ADD_VALUE
+                                                    ),
+                                                    AttributeModifierSlot.MAINHAND
+                                            )
+                                            .add(
+                                                    EntityAttributes.MOVEMENT_SPEED,
+                                                    new EntityAttributeModifier(
+                                                            Identifier.of("modid", "fire_katana_movementspeed"),
+                                                            0.65, // multiplier
+                                                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                                                    ),
+                                                    AttributeModifierSlot.MAINHAND
+                                            )
+                                            .build()
+                            )
+            )
+    );
+
 
 
     public static void init() {
